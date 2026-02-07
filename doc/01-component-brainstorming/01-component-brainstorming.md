@@ -1,12 +1,10 @@
 # Portfolio Part 1: Component Brainstorming
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) then delete this comment -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) then delete this comment -->
-- **Due Date**: <!-- TODO: fill with due date and time (e.g., 10/17 @ 3:10 PM EST) then delete this comment -->
+- **Name**: Riley Robert
+- **Dot Number**: Robert.46
+- **Due Date**: 2/6/2026
 
 ## Assignment Overview
-
-<!-- TODO: read the assignment overview then delete this comment -->
 
 The overall goal of the portfolio project is to have you design and implement
 your own OSU component. There are no limits to what you choose to design and
@@ -29,8 +27,6 @@ implement.
 
 ## Assignment Checklist
 
-<!-- TODO: browse the checklist then delete this comment -->
-
 To be sure you have completed everything on this assignment, we have littered
 this document with TODO comments. You can browse all of them in VSCode by
 opening the TODOs window from the sidebar. The icon looks like a tree and will
@@ -52,8 +48,6 @@ to the tree diagram (you may remove this one as well):
 
 ## Assignment Learning Objectives
 
-<!-- TODO: read the assignment learning objectives then delete this comment -->
-
 Without learning objectives, there really is no clear reason why a particular
 assessment or activity exists. Therefore, to be completely transparent, here is
 what we're hoping you will learn through this particular aspect of the portfolio
@@ -66,8 +60,6 @@ project. Specifically, students should be able to:
    discipline
 
 ## Assignment Rubric: 10 Points
-
-<!-- TODO: read the assignment rubric then delete this comment -->
 
 Again, to be completely transparent, most of the portfolio project, except the
 final submission, is designed as a formative assessment. Formative assessments
@@ -106,23 +98,30 @@ Below is further rationale/explanation for the rubric items above:
 > brainstorming. Plus it helps us get to know you better! Feel free to share
 > images in this section.
 
-<!-- TODO: briefly talk about your interests then delete this comment.
-Also, protip: you can preview what your response looks like by hitting
-the magnifying glass icon in the upper-right corner or pressing CTRL+K and
-then V. This kind of button combination is called a chord, for whatever
-reason -->
+I got into coding because I liked playing video games, but then I wanted to know
+how to make games. Now that I know all that, now I'm trying to figure out
+why every software sucks now. So that's my basis for coding, making better,
+less garbage applications that just do what they say they'll do.
+
+I like writing, video editing, and recently found a small passion for the foam
+swordfighting community. I enjoy creative projects like these, and frankly need
+something on my github that's public, so I am excited to make something!
+
+I already brainstormed an idea going into this. I've been playing an idle game
+titled CIFI (Cell Idle Factory Incremental) for months. Yes, months. It's a
+very simple idle game coded in unity, but it has so much content that I haven't
+even unlocked the last ship in the game yet! Going into this, I wasn't sure what
+I wanted to make in Java (because it's Java), but I really want to try making
+an idle/incremental/clicker game. It works with a lot of numbers, calculations,
+and should work in an OOP programming workflow.
 
 ## Assignment
-
-<!-- TODO: read the assignment section then delete this comment -->
 
 As previously stated, you are tasked with brainstorming 3 possible components.
 To aid you in this process, we have provided [some example components][example-components]
 that may help you in your brainstorming. All of these components were made at
 some point by one of your peers, so you should feel confident that you can
 accomplish any of them.
-
-<!-- TODO: browse the list of possible projects then delete this comment -->
 
 There is no requirement that you use any of the components listed above.
 If you want to model something else, go for it! Very common early object
@@ -142,8 +141,6 @@ list-like components that have different ways of manipulating the data. Think
 about different ways you might allow a client to manipulate your component.
 
 ### Example Component
-
-<!-- TODO: review this example component then delete this comment -->
 
 To help you brainstorm a few components, we've provided an example below of a
 component you already know well: NaturalNumber. We highly recommend that you
@@ -211,68 +208,121 @@ will likely refine your design to make your implementation easier to use.
 
 > Please use this section to share your designs.
 
-- Component Design #1: <!-- TODO: give component a name then delete this comment -->
+- Component Design #1: `CurrencyCounter`
   - **Description**:
-    - <!-- TODO: describe your component then delete this comment -->
+    - Stores the amount of any particular currency in the game.
+      This number will likely get larger than NaturalNumber can handle by itself,
+      thus this component will use exponent-mantissa representation for numbers.
   - **Kernel Methods**:
-    - <!-- TODO: list kernel methods then delete this comment -->
-  - **Secondary Methods**:
-    - <!-- TODO: list secondary methods then delete this comment -->
-  - **Additional Considerations** (*note*: "I don't know" is an acceptable
-    answer for each of the following questions):
-    - Would this component be mutable? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
-    - Would this component rely on any internal classes (e.g., `Map.Pair`)?
-      Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
-    - Would this component need any enums or constants (e.g.,
-      `Program.Instruction`)? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
-    - Can you implement your secondary methods using your kernel methods?
-      Answer, explain, and give at least one example:
-      - <!-- TODO: provide an argument then delete this comment -->
+    - (To be honest, I am not sure what functions are truly fundamental here)
+    - `void multiplyBy10(int k)` : multiplies `this` by 10 and adds `k`
+    - `int divideBy10()`: divides `this` by 10 and reports the remainder
+    - `boolean isZero()`: reports whether `this` is zero
 
-- Component Design #2: <!-- TODO: give component a name then delete this comment -->
-  - **Description**:
-    - <!-- TODO: describe your component then delete this comment -->
-  - **Kernel Methods**:
-    - <!-- TODO: list kernel methods then delete this comment -->
   - **Secondary Methods**:
-    - <!-- TODO: list secondary methods then delete this comment -->
-  - **Additional Considerations** (*note*: "I don't know" is an acceptable
-    answer for each of the following questions):
-    - Would this component be mutable? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
-    - Would this component rely on any internal classes (e.g., `Map.Pair`)?
-      Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
-    - Would this component need any enums or constants (e.g.,
-      `Program.Instruction`)? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
-    - Can you implement your secondary methods using your kernel methods?
-      Answer, explain, and give at least one example:
-      - <!-- TODO: provide an argument then delete this comment -->
+    - (I'm not going to list the obvious ones here)
+    - `boolean canConvertToDecimal()` : checks if `this` can be displayed in
+      decimal format via NaturalNumber.
+    - `void handleCarries(int k)` : changes the value of `this`'s exponent
+      and mantissa given an `int` that would cause both of these to require
+      changing (explanation later)
 
-- Component Design #3: <!-- TODO: give component a name then delete this comment -->
-  - **Description**:
-    - <!-- TODO: describe your component then delete this comment -->
-  - **Kernel Methods**:
-    - <!-- TODO: list kernel methods then delete this comment -->
-  - **Secondary Methods**:
-    - <!-- TODO: list secondary methods then delete this comment -->
   - **Additional Considerations** (*note*: "I don't know" is an acceptable
     answer for each of the following questions):
-    - Would this component be mutable? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+    - Would this component be mutable? Answer and explain: *Yes*.
+      This counter would be mutated constantly. It's kinda the point of a counter.
+
     - Would this component rely on any internal classes (e.g., `Map.Pair`)?
-      Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      Answer and explain: *No.*
+      - Exponent-mantissa allows extremely large numbers to be stored with just
+        a `float` mantissa (this number is always <10) and `int` exponent.
+        It's unrealistic that numbers would reach past 9.99 x (10^2,000,000,000).
+
     - Would this component need any enums or constants (e.g.,
-      `Program.Instruction`)? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      `Program.Instruction`)? Answer and explain: *Yes*
+      - For display purposes, it's easier for users to read smaller numbers as
+        8.45 M, 9.32 QD, etc. These "illions" would need their own constants,
+        not for any mathematical reason, but to be used when displayed as opposed
+        to defaulting to scientific notation, which can be hard to interpret
+        at lower values when words are appropriate.
+
     - Can you implement your secondary methods using your kernel methods?
-      Answer, explain, and give at least one example:
-      - <!-- TODO: provide an argument then delete this comment -->
+      Answer, explain, and give at least one example: *Yes*
+      - This follows closely with `NaturalNumber`'s design, but I will show an
+        example where it differs due to exponent-mantissa values.
+
+        Given 9.99999e840, calling `multiplyBy10(int k)` or even `add(int k)`
+        would require some different things to occur. `float mantissa` is checked
+        to see if `add(int k)` would increment past 10, and if it does, `float mantissa`
+        is reset to zero + adding 1 to `int exponent`. `multiplyBy10()` would
+        always update `int exponent` by at least 1.
+
+        Since this process can get kinda complicated, and slow if it's run every
+        time there's a change to the value (which will be often),
+        `void handleCarries(int k)` exists only in the case that a simple change
+        to `float mantissa` xor `int exponent` cannot be done.
+
+- Component Design #2: `ElementalDiscovery`
+  - **Description**:
+    - A mission-like object that is marked as "discovered" when enough currencies
+    are invested into it, providing a new powerful element/currency to further
+    increase the player's gains
+  - **Kernel Methods**:
+    - `boolean isInvestmentComplete(Element e)` : reports whether enough of an
+      Element (currency) was provided to one of `this`'s requirements
+    - `void markInvestmentComplete(Element e)` : changes the state of the
+      investment in `this` to completed.
+
+  - **Secondary Methods**:
+    - `boolean isDiscoveryComplete` : returns if `this` is entirely completed.
+
+  - **Additional Considerations** (*note*: "I don't know" is an acceptable
+    answer for each of the following questions):
+    - Would this component be mutable? Answer and explain: *Yes*
+      - This component needs to be changed often for the player to progress and
+        obtain different currencies.
+    - Would this component rely on any internal classes (e.g., `Map.Pair`)?
+      Answer and explain: *Yes*
+      - a `List` of `Map`s will be used to create the discovery's unlock
+        requirements, with the `Map` being defined as a `Map<Element, CurrencyCounter>`
+        probably.
+
+    - Would this component need any enums or constants (e.g.,
+      `Program.Instruction`)? Answer and explain: *I don't know.*
+
+    - Can you implement your secondary methods using your kernel methods?
+      Answer, explain, and give at least one example: *Yes*
+      - `isDiscoveryCompleted()` checks if the `boolean complete` is true. If
+        false, do `isInvestmentComplete(Element e)` for every investment. If
+        all of those are true, change `boolean complete` to true, else, return
+        false.
+
+- Component Design #3: `Catalyst<GameObject>`
+  - **Description**:
+    - Automatically creates more of the assigned type of object. Can create
+      `Element` or even other `Catalyst`
+
+  - **Kernel Methods**:
+    - `void create(GameObject obj, CurrencyCounter amount)` : adds `amount` to
+      `obj` with type defined in `this`
+    - `T type()` : returns what `this` is assigned to create.
+  - **Secondary Methods**:
+    - *Unsure*
+  - **Additional Considerations** (*note*: "I don't know" is an acceptable
+    answer for each of the following questions):
+    - Would this component be mutable? Answer and explain: *Yes, but as little as possible*
+      - The only mutable variable in this object should be its own `amount`, due
+        to other catalysts potentially making more catalysts.
+
+    - Would this component rely on any internal classes (e.g., `Map.Pair`)?
+      Answer and explain: *Yes*
+      - Utilizes `CurrencyCounter` for its amount.
+
+    - Would this component need any enums or constants (e.g.,
+      `Program.Instruction`)? Answer and explain: *I don't know yet.*
+
+    - Can you implement your secondary methods using your kernel methods?
+      Answer, explain, and give at least one example: *Unsure.*
 
 ## Post-Assignment
 
@@ -280,8 +330,6 @@ The following sections detail everything that you should do once you've
 completed the assignment.
 
 ### Changelog
-
-<!-- TODO: create CHANGELOG then delete this comment -->
 
 At the end of every assignment, you should update the
 [CHANGELOG.md](../../CHANGELOG.md) file found in the root of the project folder.
@@ -320,8 +368,6 @@ of development.
 
 ### Submission
 
-<!-- TODO: read the submission instructions then delete this comment -->
-
 If you have completed the assignment using this template, we recommend that
 you convert it to a PDF before submission. If you're not sure how, check out
 this [Markdown to PDF guide][markdown-to-pdf-guide]. However, PDFs should be
@@ -330,11 +376,7 @@ all your work is there before submitting. For future assignments, you will
 just be submitting a link to a pull request. This will be the only time
 you have to submit any PDFs.
 
-<!-- TODO: upload a PDF of this document and the CHANGELOG to Carmen then delete this comment -->
-
 ### Peer Review
-
-<!-- TODO: review the peer review guidelines then delete this comment -->
 
 Following the completion of this assignment, you will be assigned three
 students' component brainstorming assignments for review. Your job during the
