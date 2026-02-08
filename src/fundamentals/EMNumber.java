@@ -1,7 +1,6 @@
 package fundamentals;
 
 import components.naturalnumber.NaturalNumber;
-import components.naturalnumber.NaturalNumber2;
 
 /**
  * Author: Riley Robert
@@ -10,7 +9,7 @@ import components.naturalnumber.NaturalNumber2;
  *
  */
 public class EMNumber implements Comparable<EMNumber> {
-    private final int mantissaSigFigs = 6;
+    private final int mantissaSigFigs = 5;
 
     /**
      * Stores up to 9.99999. Multiplied by this.exponent.
@@ -34,33 +33,37 @@ public class EMNumber implements Comparable<EMNumber> {
     public EMNumber(NaturalNumber n) {
         this.mantissa = 0;
         this.exponent = 0;
-        NaturalNumber temp = new NaturalNumber2();
-        temp.copyFrom(n);
 
-        for (int i = 0; i < this.mantissaSigFigs && !temp.isZero(); i++) {
+        for (int i = 0; i < stringTemp.length(); i++) {
             //Marked as magic number, it is not, it's just decimal math.
-            this.mantissa *= (1 / (Math.pow(10, -i)) * temp.divideBy10());
-            this.exponent++;
-        }
+            if (i <= this.mantissaSigFigs) {
+                this.mantissa += ((Math.pow(10, -i))
+                        * Integer.parseInt(stringTemp.charAt(i) + ""));
+            }
 
-        while (!temp.isZero()) {
-            temp.divideBy10();
-            this.exponent++;
+            //Skip the first exponent count, since 0-9 is 10^0
+            if (i != 0) {
+                this.exponent++;
+            }
         }
     }
 
     public EMNumber(int n) {
-        int temp = n;
-        for (int i = 0; i < this.mantissaSigFigs && temp >= 0; i++) {
-            //Marked as magic number, it is not, it's just decimal math.
-            this.mantissa *= (1 / (Math.pow(10, -i)) * (temp % 10));
-            temp /= 10;
-            this.exponent++;
-        }
+        this.mantissa = 0;
+        this.exponent = 0;
+        String stringTemp = "" + n;
 
-        while (temp >= 0) {
-            temp /= 10;
-            this.exponent++;
+        for (int i = 0; i < stringTemp.length(); i++) {
+            //Marked as magic number, it is not, it's just decimal math.
+            if (i <= this.mantissaSigFigs) {
+                this.mantissa += ((Math.pow(10, -i))
+                        * Integer.parseInt(stringTemp.charAt(i) + ""));
+            }
+
+            //Skip the first exponent count, since 0-9 is 10^0
+            if (i != 0) {
+                this.exponent++;
+            }
         }
     }
 
@@ -71,6 +74,11 @@ public class EMNumber implements Comparable<EMNumber> {
 
     public EMNumber(float mantissa, int exponent) {
         this.mantissa = mantissa;
+        this.exponent = exponent;
+    }
+
+    public EMNumber(double mantissa, int exponent) {
+        this.mantissa = (float) mantissa;
         this.exponent = exponent;
     }
 
@@ -86,19 +94,23 @@ public class EMNumber implements Comparable<EMNumber> {
         return this.exponent;
     }
 
+    public boolean isZero() {
+        return ((Math.abs(this.mantissa()) < 0.00001) && this.exponent == 0);
+    }
+
     public void add(EMNumber n) {
         // Trying to make this as fast as possible, don't do anything complex
         // unless necessary
 
         //If n is too small...
-        if (this.exponent - n.exponent < this.mantissaSigFigs) {
+        if (this.exponent - n.exponent > this.mantissaSigFigs) {
+            return;
+        }
 
-            //If n is actually way bigger...
-            if (n.exponent - this.exponent > this.mantissaSigFigs) {
-                this.mantissa = n.mantissa;
-                this.exponent = n.exponent;
-            }
-
+        //If n is actually way bigger...
+        if (n.exponent - this.exponent > this.mantissaSigFigs) {
+            this.mantissa = n.mantissa;
+            this.exponent = n.exponent;
             return;
         }
 
