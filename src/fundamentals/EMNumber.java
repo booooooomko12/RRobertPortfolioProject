@@ -33,6 +33,7 @@ public class EMNumber implements Comparable<EMNumber> {
     public EMNumber(NaturalNumber n) {
         this.mantissa = 0;
         this.exponent = 0;
+        String stringTemp = n.toString();
 
         for (int i = 0; i < stringTemp.length(); i++) {
             //Marked as magic number, it is not, it's just decimal math.
