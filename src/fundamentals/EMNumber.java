@@ -9,12 +9,12 @@ import components.naturalnumber.NaturalNumber;
  *
  */
 public class EMNumber implements Comparable<EMNumber> {
-    private final int mantissaSigFigs = 5;
+    private final int mantissaSigFigs = 7;
 
     /**
-     * Stores up to 9.99999. Multiplied by this.exponent.
+     * Stores values from 0 to 9.9999999. Multiplied by this.exponent.
      */
-    private float mantissa;
+    private double mantissa;
 
     /**
      * Represents values in 10^(exponent) format.
@@ -73,13 +73,13 @@ public class EMNumber implements Comparable<EMNumber> {
         this.exponent = n.exponent;
     }
 
-    public EMNumber(float mantissa, int exponent) {
+    public EMNumber(double mantissa, int exponent) {
         this.mantissa = mantissa;
         this.exponent = exponent;
     }
 
-    public EMNumber(double mantissa, int exponent) {
-        this.mantissa = (float) mantissa;
+    public EMNumber(float mantissa, int exponent) {
+        this.mantissa = (double) mantissa;
         this.exponent = exponent;
     }
 
@@ -87,7 +87,7 @@ public class EMNumber implements Comparable<EMNumber> {
      * Kernel Methods
      */
 
-    public float mantissa() {
+    public double mantissa() {
         return this.mantissa;
     }
 
@@ -132,7 +132,7 @@ public class EMNumber implements Comparable<EMNumber> {
 
             //this is bigger
             if (exponentDifference < 0) {
-                this.mantissa += (float) Math.pow(n.mantissa,
+                this.mantissa += (double) Math.pow(n.mantissa,
                         exponentDifference);
                 if (this.mantissa >= 10) {
                     this.mantissa %= 10;
@@ -143,7 +143,7 @@ public class EMNumber implements Comparable<EMNumber> {
             } else {
                 this.exponent = n.exponent;
                 this.mantissa = n.mantissa
-                        + (float) Math.pow(this.mantissa, -exponentDifference);
+                        + (double) Math.pow(this.mantissa, -exponentDifference);
                 if (this.mantissa >= 10) {
                     this.mantissa %= 10;
                     this.exponent++;
