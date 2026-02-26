@@ -10,6 +10,7 @@ import components.naturalnumber.NaturalNumber;
  */
 public class EMNumber implements Comparable<EMNumber> {
     private final int mantissaSigFigs = 7;
+    private final double MANTISSA_MAX = 9.9999999;
 
     /**
      * Stores values from 0 to 9.9999999. Multiplied by this.exponent.
@@ -50,6 +51,7 @@ public class EMNumber implements Comparable<EMNumber> {
     }
 
     public EMNumber(int n) {
+        assert n >= 0 : "Cannot intantiate EMNumber with negative value.";
         this.mantissa = 0;
         this.exponent = 0;
         String stringTemp = "" + n;
@@ -74,13 +76,35 @@ public class EMNumber implements Comparable<EMNumber> {
     }
 
     public EMNumber(double mantissa, int exponent) {
+        assert mantissa >= 0 : "Cannot intantiate EMNumber with negative value.";
         this.mantissa = mantissa;
         this.exponent = exponent;
     }
 
-    public EMNumber(float mantissa, int exponent) {
-        this.mantissa = (double) mantissa;
-        this.exponent = exponent;
+    public EMNumber(double n) {
+        assert n >= 0 : "Cannot intantiate EMNumber with negative value.";
+        this.mantissa = n;
+        this.fixMantissa();
+    }
+
+    /*
+     * Private Methods
+     */
+
+    /**
+     * Fixes the mantissa in the case 0 < this.mantissa < 1 OR 9.99999 <
+     * this.mantissa, restoring format and adjusting this.exponent accordingly.
+     */
+    private void fixMantissa() {
+        while (this.mantissa < 1) {
+            this.mantissa *= 10;
+            this.exponent--;
+        }
+
+        while (this.mantissa > this.MANTISSA_MAX) {
+            this.mantissa /= 10;
+            this.exponent++;
+        }
     }
 
     /*
@@ -96,15 +120,22 @@ public class EMNumber implements Comparable<EMNumber> {
     }
 
     public boolean isZero() {
-        return ((Math.abs(this.mantissa()) < 0.00001) && this.exponent == 0);
+        return ((this.mantissa() < 0.0000001) && this.exponent == 0);
     }
 
     public void add(EMNumber n) {
         // Trying to make this as fast as possible, don't do anything complex
         // unless necessary
 
+        //Checking for zeros (Math.pow explodes otherwise)
+        if (this.isZero()) {
+            this.mantissa = n.mantissa;
+            this.exponent = n.exponent;
+            return;
+        }
+
         //If n is too small...
-        if (this.exponent - n.exponent > this.mantissaSigFigs) {
+        if (this.exponent - n.exponent > this.mantissaSigFigs || n.isZero()) {
             return;
         }
 
@@ -120,6 +151,7 @@ public class EMNumber implements Comparable<EMNumber> {
             if (this.mantissa + n.mantissa >= 10) {
                 {
                     this.mantissa = (this.mantissa + n.mantissa) % 10;
+                    this.fixMantissa();
                     this.exponent++;
                 }
             } else {
@@ -137,6 +169,7 @@ public class EMNumber implements Comparable<EMNumber> {
                 if (this.mantissa >= 10) {
                     this.mantissa %= 10;
                     this.exponent++;
+                    this.fixMantissa();
                 }
 
                 //n is bigger
@@ -147,9 +180,75 @@ public class EMNumber implements Comparable<EMNumber> {
                 if (this.mantissa >= 10) {
                     this.mantissa %= 10;
                     this.exponent++;
+                    this.fixMantissa();
                 }
             }
         }
+    }
+
+    public void subtract(EMNumber n) {
+        assert (this.exponent - n.exponent > 0
+                || (this.exponent - n.exponent == 0 && this.mantissa
+                        - n.mantissa < 0)) : "Subtraction would cause negative value.";
+
+        // Trying to make this as fast as possible, don't do anything complex
+        // unless necessary
+
+        //If n is too small...
+        if (this.exponent - n.exponent > this.mantissaSigFigs) {
+            return;
+        }
+
+        //If this and n are equal magnitude...
+        if (this.exponent == n.exponent) {
+            if (this.mantissa - n.mantissa < 0) {
+
+                this.mantissa = 10 + (this.mantissa - n.mantissa);
+                this.exponent--;
+
+            } else {
+                this.mantissa -= n.mantissa;
+            }
+
+            //WORST CASE SCENARIO!
+            //Thankfully easier than add() due to negative prevention
+        } else {
+            int exponentDifference = n.exponent - this.exponent;
+            this.mantissa += (double) Math.pow(n.mantissa, exponentDifference);
+            if (this.mantissa <= 10) {
+                this.mantissa = 10 - this.mantissa;
+                this.exponent--;
+                this.fixMantissa();
+
+                //n is bigger
+            }
+        }
+    }
+
+    /*
+     * multiply and divide are not secondary methods due to being WAY faster on
+     * their own
+     */
+    public void multiply(EMNumber n) {
+        //I don't care that I'm using a kernel in a kernel, it'd be the exact
+        //same code regardless, quit being picky!
+
+        if (this.isZero() || n.isZero()) {
+            this.mantissa = 0.0;
+            this.exponent = 0;
+        } else {
+            this.exponent += n.exponent;
+            this.mantissa *= n.mantissa;
+            this.fixMantissa();
+        }
+    }
+
+    public void divide(EMNumber n) {
+        assert !this.isZero() && !n.isZero() : "ERROR: Division by 0.";
+
+        this.exponent -= n.exponent;
+        this.mantissa /= n.mantissa;
+        this.fixMantissa();
     }
 
     @Override
@@ -167,6 +266,11 @@ public class EMNumber implements Comparable<EMNumber> {
                 return 0;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.7f", this.mantissa) + "E" + this.exponent;
     }
 
     /*
