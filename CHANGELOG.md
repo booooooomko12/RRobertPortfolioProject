@@ -6,21 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
-## 2/26/2026
+## 3/10/2026
 
 ### Added
 
-- EMNumber class
-    - Methods
-        - mantissa() (getter)
-        - exponent() (getter)
-        - isZero()
-        - add(EMNumber n)
-        - subtract(EMNumber n)
-        - multiply(EMNumber n)
-        - divide(EMNumber n)
-    - Constructors
-        - (double mantissa, int exponent)
-        - (int n)
-        - (double n)
-        - (NaturalNumber n)
+- EMNumber Kernel
+ - Extends Standard<EMNumber>
+ - Added documentation for all(?) methods
+- Generator Kernel
+ - Extends Standard<GameObject>
+ - only has generate() function at the moment, might stay that way
+- Multiplier + MultiplierStorage
+ - Work In Progress classes
+ - Intended to make various calculations per GameObjects easier
+- GameObjectNames enum
+ - Basic enum for many GameObject classes to make assignment of values easier
