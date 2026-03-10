@@ -1,4 +1,4 @@
-package fundamentals;
+package gameobjects;
 
 /**
  * Names of various used game objects. Intended for assigning multipliers.

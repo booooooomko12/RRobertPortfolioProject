@@ -2,7 +2,6 @@ package gameobjects;
 
 import components.naturalnumber.NaturalNumber;
 import fundamentals.EMNumber;
-import fundamentals.GameObjectNames;
 
 /**
  * An Multiplier specifically designed for The Idle Game to include what

@@ -301,13 +301,48 @@ public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
         }
     }
 
+    /*
+     * Extended Methods
+     */
+
     @Override
     public String toString() {
         return String.format("%.7f", this.mantissa) + "E" + this.exponent;
     }
 
+    @Override
+    public void clear() {
+        this.mantissa = 0;
+        this.exponent = 0;
+    }
+
+    @Override
+    public EMNumber newInstance() {
+        return new EMNumber();
+    }
+
+    @Override
+    public void transferFrom(EMNumber arg0) {
+        this.mantissa = arg0.mantissa;
+        this.exponent = arg0.exponent;
+        arg0.mantissa = 0;
+        arg0.exponent = 0;
+    }
+
     /*
      * Secondary Methods
      */
+
+    /**
+     * Copy data from {@code arg0} to {@code this}, does not alter {@code arg0}
+     *
+     * @restores arg0
+     * @ensures this = arg0
+     * @param arg0
+     */
+    public void copyFrom(EMNumber arg0) {
+        this.mantissa = arg0.mantissa;
+        this.exponent = arg0.exponent;
+    }
 
 }

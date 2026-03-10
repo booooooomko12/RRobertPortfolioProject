@@ -4,7 +4,6 @@ import components.map.Map;
 import components.map.Map1L;
 import components.set.Set;
 import components.set.Set1L;
-import fundamentals.GameObjectNames;
 
 public class MultiplierStorage {
 
