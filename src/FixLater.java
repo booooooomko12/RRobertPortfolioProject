@@ -12,5 +12,11 @@ public class FixLater {
         System.out.println("EMNumber(309.52332): " + doubleTest.toString());
         test.multiply(doubleTest);
         System.out.println("30 * 309.52332: " + test.toString());
+        EMNumber giganticNumber = new EMNumber(9.4234, 48245);
+        System.out.println("Large EMNumber (L): " + giganticNumber.toString());
+        giganticNumber.divide(test);
+        System.out
+                .println("L / (30 * 309.52332): " + giganticNumber.toString());
     }
+
 }

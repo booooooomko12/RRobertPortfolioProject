@@ -3,14 +3,13 @@ package fundamentals;
 import components.naturalnumber.NaturalNumber;
 
 /**
- * Author: Riley Robert
- *
  * Representation of positive numbers using exponent-mantissa calculation.
  *
+ * @author Riley Robert
  */
-public class EMNumber implements Comparable<EMNumber> {
-    private final int mantissaSigFigs = 7;
-    private final double MANTISSA_MAX = 9.9999999;
+public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
+    protected final int mantissaSigFigs = 7;
+    protected final double mantissaMax = 9.9999999;
 
     /**
      * Stores values from 0 to 9.9999999. Multiplied by this.exponent.
@@ -101,7 +100,7 @@ public class EMNumber implements Comparable<EMNumber> {
             this.exponent--;
         }
 
-        while (this.mantissa > this.MANTISSA_MAX) {
+        while (this.mantissa > this.mantissaMax) {
             this.mantissa /= 10;
             this.exponent++;
         }
@@ -119,10 +118,30 @@ public class EMNumber implements Comparable<EMNumber> {
         return this.exponent;
     }
 
+    /**
+     * Reports if {@code this} is effectively 0.
+     *
+     * @ensures {@code this} is equal to 0 within reasonable decimal precision.
+     * @return {@code (this.mantissa() < 0.0000001) && this.exponent == 0}
+     */
     public boolean isZero() {
         return ((this.mantissa() < 0.0000001) && this.exponent == 0);
     }
 
+    /**
+     * Adds {@code n} to {@code this}.
+     *
+     * @ensures {@code if (this.exponent - n.exponent > mantissaSigFigs),
+     *  #this = this}
+     * @ensures {@code if (n.exponent - this.exponent > mantissaSigFigs),
+     *  #this = n}
+     * @ensures {@code else, #this = this - n}
+     *
+     * @updates this
+     * @param n
+     *            Number to be added
+     */
+    @Override
     public void add(EMNumber n) {
         // Trying to make this as fast as possible, don't do anything complex
         // unless necessary
@@ -186,6 +205,19 @@ public class EMNumber implements Comparable<EMNumber> {
         }
     }
 
+    /**
+     * Subtracts {@code n} from {@code this}.
+     *
+     * @requires {@code this - n > 0}
+     * @ensures {@code if (this.exponent - n.exponent > mantissaSigFigs),
+     *  #this = this}
+     * @ensures {@code else, #this = this - n}
+     *
+     * @updates this
+     * @param n
+     *            Number to be subtracted
+     */
+    @Override
     public void subtract(EMNumber n) {
         assert (this.exponent - n.exponent > 0
                 || (this.exponent - n.exponent == 0 && this.mantissa
@@ -219,8 +251,6 @@ public class EMNumber implements Comparable<EMNumber> {
                 this.mantissa = 10 - this.mantissa;
                 this.exponent--;
                 this.fixMantissa();
-
-                //n is bigger
             }
         }
     }
@@ -229,6 +259,8 @@ public class EMNumber implements Comparable<EMNumber> {
      * multiply and divide are not secondary methods due to being WAY faster on
      * their own
      */
+
+    @Override
     public void multiply(EMNumber n) {
         //I don't care that I'm using a kernel in a kernel, it'd be the exact
         //same code regardless, quit being picky!
@@ -243,6 +275,7 @@ public class EMNumber implements Comparable<EMNumber> {
         }
     }
 
+    @Override
     public void divide(EMNumber n) {
         assert !this.isZero() && !n.isZero() : "ERROR: Division by 0.";
 
