@@ -5,25 +5,19 @@ import fundamentals.EMNumber;
 
 /**
  * An Multiplier specifically designed for The Idle Game to include what
- * {@code Element} this number should multiply. {@code assignedElement} is
+ * {@code Element} this number should multiply. {@code assignedObject} is
  * immutable.
  */
 public final class Multiplier extends EMNumber {
-    private GameObjectNames assignedElement;
+    private GameObjectNames assignedObject;
 
     /*
      * Yay! Constructors!
      */
 
-    //please never use this
-    public Multiplier() {
-        super();
-        this.assignedElement = null;
-    }
-
     public Multiplier(GameObjectNames a) {
         super();
-        this.assignedElement = a;
+        this.assignedObject = a;
     }
 
     /**
@@ -34,35 +28,35 @@ public final class Multiplier extends EMNumber {
      */
     public Multiplier(Multiplier m) {
         super(m.mantissa(), m.exponent());
-        this.assignedElement = m.assignedElement;
+        this.assignedObject = m.assignedObject;
     }
 
     public Multiplier(NaturalNumber n, GameObjectNames a) {
         super(n);
-        this.assignedElement = a;
+        this.assignedObject = a;
     }
 
     public Multiplier(int n, GameObjectNames a) {
         super(n);
-        this.assignedElement = a;
+        this.assignedObject = a;
     }
 
     public Multiplier(EMNumber n, GameObjectNames a) {
         super(n);
-        this.assignedElement = a;
+        this.assignedObject = a;
     }
 
     public Multiplier(double mantissa, int exponent, GameObjectNames a) {
         super(mantissa, exponent);
-        this.assignedElement = a;
+        this.assignedObject = a;
     }
 
     public Multiplier(double n, GameObjectNames a) {
         super(n);
-        this.assignedElement = a;
+        this.assignedObject = a;
     }
 
-    public GameObjectNames assignedElement() {
-        return this.assignedElement;
+    public GameObjectNames assignedObject() {
+        return this.assignedObject;
     }
 }

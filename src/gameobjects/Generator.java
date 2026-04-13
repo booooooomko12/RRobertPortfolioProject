@@ -17,7 +17,7 @@ public abstract class Generator<T extends GameObject> extends GameObject
      * Variables
      */
     /**
-     * Intended data from MultiplierStorage.convertToCombinedMap()
+     * Intended data from MultiplierStorage.convertToCombinedMap().
      */
     private Multiplier outputMultiplier;
 

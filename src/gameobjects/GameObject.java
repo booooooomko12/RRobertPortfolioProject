@@ -14,27 +14,47 @@ public abstract class GameObject {
      */
 
     /**
-     * Amount of this
+     * Amount of this.
      */
     private EMNumber amount;
 
     /**
-     * Type of this from GameObjectNames
+     * Type of this from GameObjectNames.
      */
     private GameObjectNames type;
 
+    /**
+     * @return this.amount
+     */
     public EMNumber amount() {
         return this.amount;
     }
 
+    /**
+     * Replaces this.amount with amt.
+     *
+     * @param amt
+     */
     public void setAmount(EMNumber amt) {
         this.amount = new EMNumber(amt);
     }
 
+    /**
+     *
+     * @return this.type
+     */
     public GameObjectNames type() {
         return this.type;
     }
 
+    /**
+     * Replaces this.type with type.
+     *
+     * DONT USE THIS FUNCTION UNLESS EXTENDING THIS CLASS; THEY DON'T LET ME USE
+     * PROTECTED, IT'S HORRIBLE!
+     *
+     * @param type
+     */
     public void setType(GameObjectNames type) {
         this.type = type;
     }

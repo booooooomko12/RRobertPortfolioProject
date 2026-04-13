@@ -1,7 +1,7 @@
 package gameobjects;
 
 /**
- * Baseline generator, nothing special.
+ * Simple single-GameObject generator.
  *
  * @param <T>
  *            Generates T

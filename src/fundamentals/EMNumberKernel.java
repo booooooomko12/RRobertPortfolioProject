@@ -38,7 +38,7 @@ public interface EMNumberKernel extends Standard<EMNumber> {
     void multiply(EMNumber n);
 
     /**
-     * Divides {@code this} by {@code n}
+     * Divides {@code this} by {@code n}.
      *
      * @ensures {@code #this = this / n}
      * @param n
