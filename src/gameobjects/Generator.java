@@ -3,8 +3,12 @@ package gameobjects;
 import fundamentals.EMNumber;
 
 /**
+ * Baseline Generator representation.
+ *
+ * Input parameter <T> is a GameObject and Generator itself is a GameObject.
+ *
  * @param <T>
- *            Generates T
+ *            Generates T (GameObject)
  */
 public abstract class Generator<T extends GameObject> extends GameObject
         implements GeneratorKernel<T> {

@@ -8,8 +8,8 @@ import components.naturalnumber.NaturalNumber;
  * @author Riley Robert
  */
 public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
-    protected final int mantissaSigFigs = 7;
-    protected final double mantissaMax = 9.9999999;
+    private final int mantissaSigFigs = 7;
+    private final double mantissaMax = 9.9999999;
 
     /**
      * Stores values from 0 to 9.9999999. Multiplied by this.exponent.
