@@ -6,7 +6,7 @@ package gameobjects;
  * @param <T>
  *            Generates T
  */
-public class Synthesizer<T extends GameObject> extends Generator<T> {
+public class Synthesizer<T extends GameObject> extends GeneratorSecondary<T> {
 
     @Override
     public final int compareTo(T o) {

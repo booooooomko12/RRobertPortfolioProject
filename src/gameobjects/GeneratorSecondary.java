@@ -10,8 +10,8 @@ import fundamentals.EMNumber;
  * @param <T>
  *            Generates T (GameObject)
  */
-public abstract class Generator<T extends GameObject> extends GameObject
-        implements GeneratorKernel<T> {
+public abstract class GeneratorSecondary<T extends GameObject>
+        extends GameObject implements GeneratorKernel<T> {
 
     /*
      * Variables
