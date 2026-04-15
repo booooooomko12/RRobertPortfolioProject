@@ -13,6 +13,7 @@ the following form: YYYY.0M.0D.
 - Significantly altered the concept of the game
   - No longer based on fantastical elements, will now work with real life perodic elements and the creation of all things through dark matter.
 - GameObjectNames updated to include periodic table elements and other atomic materials.
+- Made every object extend Standard in some way
 
 ## Fixed
 
