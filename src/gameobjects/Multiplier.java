@@ -7,6 +7,11 @@ import fundamentals.EMNumber;
  * An Multiplier specifically designed for The Idle Game to include what
  * {@code Element} this number should multiply. {@code assignedObject} is
  * immutable.
+ *
+ * @convention <pre>
+ * [convention for EMNumber is adhered] and [$this.assignedObject is a
+ * value described in GameObjectNames]
+ * </pre>
  */
 public final class Multiplier extends EMNumber {
     /**

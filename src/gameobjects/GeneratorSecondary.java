@@ -30,7 +30,7 @@ public abstract class GeneratorSecondary<T extends GameObject>
      *
      * @return this.outputMultiplier()
      */
-    public Multiplier outpitMultiplier() {
+    public Multiplier outputMultiplier() {
         return this.outputMultiplier;
     }
 

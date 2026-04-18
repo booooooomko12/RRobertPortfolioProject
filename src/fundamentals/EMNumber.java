@@ -5,9 +5,25 @@ import components.naturalnumber.NaturalNumber;
 /**
  * Representation of positive numbers using exponent-mantissa calculation.
  *
+ * @covention <pre>
+ * [$this.mantissa is a value between [0, 9.9999999]] and [exponent >= 0] and
+ * [significant figures of $this.mantissa == 7]
+ * </pre>
+ *
+ * @correspondence <pre>
+ * this = [base 10 equivalent number represented as
+ * ($this.mantissa)*10^($this.exponent)]
+ * </pre>
+ *
+ *
  * @author Riley Robert
  */
 public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
+
+    /*
+     * Yay! Constructors!
+     */
+
     /**
      * The number of significant figures EMNumber does calculations to; any
      * calculations that result in changes to more/less than this are to
@@ -28,10 +44,6 @@ public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
      * Represents values in 10^(exponent) format.
      */
     private int exponent;
-
-    /*
-     * Yay! Constructors!
-     */
 
     /**
      * Baseline EMNumber constructor.
@@ -118,7 +130,7 @@ public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
     }
 
     /**
-     * Equivalent value EMNumber generated from double
+     * Equivalent value EMNumber generated from double.
      *
      * @param n
      */
