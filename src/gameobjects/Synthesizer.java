@@ -11,24 +11,51 @@ import fundamentals.EMNumber;
 public class Synthesizer<T extends GameObject> extends GeneratorSecondary<T> {
 
     //Just used for newInstance, if it breaks that's on the client lol
+    /**
+     * DON'T USE THIS.
+     */
     private Synthesizer() {
         this.setAmount(new EMNumber());
         this.setType(null);
         this.setOutputMultiplier(new Multiplier((GameObjectNames) null));
     }
 
+    /**
+     * Baseline contructor of Synthesizer.
+     *
+     * @param type
+     *            GameObject type (from GameObjectNames)
+     */
     public Synthesizer(GameObjectNames type) {
         this.setAmount(new EMNumber());
         this.setType(type);
         this.setOutputMultiplier(new Multiplier(type));
     }
 
+    /**
+     * Contructor of Synthesizer with type and amount.
+     *
+     * @param type
+     *            GameObject type (from GameObjectNames)
+     * @param amount
+     */
     public Synthesizer(GameObjectNames type, EMNumber amount) {
         this.setAmount(amount);
         this.setType(type);
         this.setOutputMultiplier(new Multiplier(type));
     }
 
+    /**
+     * Contructor of Synthesizer with type, amount, and an attached Multiplier.
+     *
+     * @param type
+     *            GameObject type (from GameObjectNames)
+     * @param amount
+     * @param multi
+     *            Multiplier to output:
+     *
+     *            output = multi * amount
+     */
     public Synthesizer(GameObjectNames type, EMNumber amount,
             Multiplier multi) {
         this.setAmount(amount);
@@ -46,7 +73,7 @@ public class Synthesizer<T extends GameObject> extends GeneratorSecondary<T> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public T newInstance() {
+    public final T newInstance() {
         // I have no idea how this would fail. This whole function sucks.
 
         return (T) new Synthesizer<T>();
