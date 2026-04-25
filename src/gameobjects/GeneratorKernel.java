@@ -1,6 +1,5 @@
 package gameobjects;
 
-import components.standard.Standard;
 import fundamentals.EMNumber;
 
 /**
@@ -10,8 +9,7 @@ import fundamentals.EMNumber;
  * @param <T>
  *            an object classified as a {@code GameObject}.
  */
-public interface GeneratorKernel<T extends GameObject>
-        extends Comparable<T>, Standard<T> {
+public interface GeneratorKernel<T extends GameObject> {
 
     /**
      * Calculates the amount of {@code T} to "create," intended to update

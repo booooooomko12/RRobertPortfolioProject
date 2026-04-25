@@ -8,45 +8,45 @@ import fundamentals.EMNumber;
  * @param <T>
  *            Generates T
  */
-public class Synthesizer<T extends GameObject> extends GeneratorSecondary<T> {
+public class Generator1<T extends GameObject> extends GeneratorSecondary<T> {
 
     //Just used for newInstance, if it breaks that's on the client lol
     /**
      * DON'T USE THIS.
      */
-    private Synthesizer() {
+    private Generator1() {
         this.setAmount(new EMNumber());
         this.setType(null);
         this.setOutputMultiplier(new Multiplier((GameObjectNames) null));
     }
 
     /**
-     * Baseline contructor of Synthesizer.
+     * Baseline contructor of Generator1.
      *
      * @param type
      *            GameObject type (from GameObjectNames)
      */
-    public Synthesizer(GameObjectNames type) {
+    public Generator1(GameObjectNames type) {
         this.setAmount(new EMNumber());
         this.setType(type);
         this.setOutputMultiplier(new Multiplier(type));
     }
 
     /**
-     * Contructor of Synthesizer with type and amount.
+     * Contructor of Generator1 with type and amount.
      *
      * @param type
      *            GameObject type (from GameObjectNames)
      * @param amount
      */
-    public Synthesizer(GameObjectNames type, EMNumber amount) {
+    public Generator1(GameObjectNames type, EMNumber amount) {
         this.setAmount(amount);
         this.setType(type);
         this.setOutputMultiplier(new Multiplier(type));
     }
 
     /**
-     * Contructor of Synthesizer with type, amount, and an attached Multiplier.
+     * Contructor of Generator1 with type, amount, and an attached Multiplier.
      *
      * @param type
      *            GameObject type (from GameObjectNames)
@@ -56,8 +56,7 @@ public class Synthesizer<T extends GameObject> extends GeneratorSecondary<T> {
      *
      *            output = multi * amount
      */
-    public Synthesizer(GameObjectNames type, EMNumber amount,
-            Multiplier multi) {
+    public Generator1(GameObjectNames type, EMNumber amount, Multiplier multi) {
         this.setAmount(amount);
         this.setType(type);
         Multiplier temp = new Multiplier(multi.mantissa(), multi.exponent(),
@@ -67,15 +66,13 @@ public class Synthesizer<T extends GameObject> extends GeneratorSecondary<T> {
     }
 
     @Override
-    public final int compareTo(T o) {
+    public final int compareTo(GeneratorSecondary<T> o) {
         return this.amount().compareTo(o.amount());
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public final T newInstance() {
-        // I have no idea how this would fail. This whole function sucks.
+    public final GeneratorSecondary<T> newInstance() {
 
-        return (T) new Synthesizer<T>();
+        return new Generator1<T>();
     }
 }

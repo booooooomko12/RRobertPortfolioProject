@@ -1,5 +1,6 @@
 package gameobjects;
 
+import components.standard.Standard;
 import fundamentals.EMNumber;
 
 /**
@@ -11,7 +12,8 @@ import fundamentals.EMNumber;
  *            Generates T (GameObject)
  */
 public abstract class GeneratorSecondary<T extends GameObject>
-        extends GameObject implements GeneratorKernel<T> {
+        extends GameObject implements GeneratorKernel<T>,
+        Comparable<GeneratorSecondary<T>>, Standard<GeneratorSecondary<T>> {
 
     /*
      * Variables
@@ -30,19 +32,30 @@ public abstract class GeneratorSecondary<T extends GameObject>
      *
      * @return this.outputMultiplier()
      */
-    public Multiplier outpitMultiplier() {
+    public Multiplier outputMultiplier() {
         return this.outputMultiplier;
     }
 
     /**
-     * Sets this.outputMultiplier. Uses transferFrom()
+     * Sets this.outputMultiplier. If this.type == null, this.type will be
+     * changed to that of the outputMultiplier. Otherwise this.type() must equal
+     * m.assignedObject().
      *
      * @updates this.outputMultiplier
-     * @clears m
+     * @updates this.type IF this.type == null
      * @param m
      */
     public void setOutputMultiplier(Multiplier m) {
-        this.outputMultiplier.transferFrom(m);
+
+        //This ONLY happens if you use newInstance.
+        if (this.type() == null) {
+            this.setType(m.assignedObject());
+            this.outputMultiplier = new Multiplier(m);
+        } else {
+            assert this.type().equals(m
+                    .assignedObject()) : "Cannot assign Multiplier of different type than this.";
+            this.outputMultiplier = new Multiplier(m);
+        }
     }
 
     @Override
@@ -59,17 +72,11 @@ public abstract class GeneratorSecondary<T extends GameObject>
     }
 
     @Override
-    public final void transferFrom(T arg0) {
-        assert (arg0 instanceof GeneratorSecondary) : ""
-                + "Cannot transfer data from non-generator into generator object.";
+    public final void transferFrom(GeneratorSecondary<T> arg0) {
 
-        // I just checked the typecast ignore the warning
-        @SuppressWarnings("unchecked")
-        GeneratorSecondary<T> itsAGeneratorTrust = (GeneratorSecondary<T>) arg0;
-
-        this.setType(itsAGeneratorTrust.type());
-        this.setAmount(itsAGeneratorTrust.amount());
-        this.outputMultiplier = itsAGeneratorTrust.outputMultiplier;
+        this.setType(arg0.type());
+        this.setAmount(arg0.amount());
+        this.outputMultiplier = arg0.outputMultiplier;
     }
 
 }
