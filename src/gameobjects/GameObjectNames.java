@@ -11,12 +11,11 @@ public enum GameObjectNames {
 
     //Non-currency Objects (mostly generator names)
     //MKX = Generator that generates more MK(X-1)s. MK1 generates DARKMATTER.
-    MK1, MK2, MK3, MK4, MK5, MK6, MK7, MK8, MK9, MK10;
+    MK1, MK2, MK3, MK4, MK5, MK6, MK7, MK8, MK9, MK10,
 
     
 
 
-    public enum AtomicElement {
     //Atomic elements. Yes, all of them. 
     //REMINDER: CTRL + K, CTRL + SHIFT + S, saves without formatting, will make this list look ass otherwise!.
 
@@ -138,6 +137,5 @@ public enum GameObjectNames {
         LIVERMORIUM,
         TENNESSINE,
         OGANESSON
-    }
 
 }

@@ -5,16 +5,6 @@ import fundamentals.EMNumber;
 /**
  * Simple single-GameObject generator.
  *
- * @convention <pre>
- * [$this.outputMultiplier is a valid Multiplier] and
- * [$this.outputMultiplier.type == $this.type]
- * </pre>
- *
- * @correspondence <pre>
- * this = [a representation of a GameObject "generator"] and
- * [$this.generate() = $this.amount * $this.outputMultiplier]
- * </pre>
- *
  * @param <T>
  *            Generates T
  */
@@ -23,7 +13,6 @@ public class Generator1<T extends GameObject> extends GeneratorSecondary<T> {
     //Just used for newInstance, if it breaks that's on the client lol
     /**
      * DON'T USE THIS.
-     *
      */
     private Generator1() {
         this.setAmount(new EMNumber());
@@ -32,7 +21,7 @@ public class Generator1<T extends GameObject> extends GeneratorSecondary<T> {
     }
 
     /**
-     * Baseline contructor of Synthesizer.
+     * Baseline contructor of Generator1.
      *
      * @param type
      *            GameObject type (from GameObjectNames)
@@ -44,7 +33,7 @@ public class Generator1<T extends GameObject> extends GeneratorSecondary<T> {
     }
 
     /**
-     * Contructor of Synthesizer with type and amount.
+     * Contructor of Generator1 with type and amount.
      *
      * @param type
      *            GameObject type (from GameObjectNames)
@@ -57,7 +46,7 @@ public class Generator1<T extends GameObject> extends GeneratorSecondary<T> {
     }
 
     /**
-     * Contructor of Synthesizer with type, amount, and an attached Multiplier.
+     * Contructor of Generator1 with type, amount, and an attached Multiplier.
      *
      * @param type
      *            GameObject type (from GameObjectNames)
@@ -77,15 +66,13 @@ public class Generator1<T extends GameObject> extends GeneratorSecondary<T> {
     }
 
     @Override
-    public final int compareTo(T o) {
+    public final int compareTo(GeneratorSecondary<T> o) {
         return this.amount().compareTo(o.amount());
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public final T newInstance() {
-        // I have no idea how this would fail. This whole function sucks.
+    public final GeneratorSecondary<T> newInstance() {
 
-        return (T) new Generator1<T>();
+        return new Generator1<T>();
     }
 }

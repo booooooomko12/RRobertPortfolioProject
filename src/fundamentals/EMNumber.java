@@ -235,27 +235,13 @@ public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
         } else {
             int exponentDifference = n.exponent - this.exponent;
 
-            //this is bigger
-            if (exponentDifference < 0) {
-                this.mantissa += (double) Math.pow(n.mantissa,
-                        exponentDifference);
-                if (this.mantissa >= 10) {
-                    this.mantissa %= 10;
-                    this.exponent++;
-                    this.fixMantissa();
-                }
-
-                //n is bigger
-            } else {
-                this.exponent = n.exponent;
-                this.mantissa = n.mantissa
-                        + (double) Math.pow(this.mantissa, -exponentDifference);
-                if (this.mantissa >= 10) {
-                    this.mantissa %= 10;
-                    this.exponent++;
-                    this.fixMantissa();
-                }
+            this.mantissa += n.mantissa * (Math.pow(10, exponentDifference));
+            if (this.mantissa >= 10) {
+                this.mantissa %= 10;
+                this.exponent++;
+                this.fixMantissa();
             }
+
         }
     }
 
@@ -273,9 +259,8 @@ public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
      */
     @Override
     public void subtract(EMNumber n) {
-        assert (this.exponent - n.exponent > 0
-                || (this.exponent - n.exponent == 0 && this.mantissa
-                        - n.mantissa < 0)) : "Subtraction would cause negative value.";
+        assert this
+                .compareTo(n) > 0 : "Subtraction would cause negative value.";
 
         // Trying to make this as fast as possible, don't do anything complex
         // unless necessary
@@ -300,12 +285,8 @@ public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
             //Thankfully easier than add() due to negative prevention
         } else {
             int exponentDifference = n.exponent - this.exponent;
-            this.mantissa += (double) Math.pow(n.mantissa, exponentDifference);
-            if (this.mantissa <= 10) {
-                this.mantissa = 10 - this.mantissa;
-                this.exponent--;
-                this.fixMantissa();
-            }
+            this.mantissa -= n.mantissa * (Math.pow(10, exponentDifference));
+            this.fixMantissa();
         }
     }
 
@@ -381,6 +362,27 @@ public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
         this.exponent = arg0.exponent;
         arg0.mantissa = 0;
         arg0.exponent = 0;
+    }
+
+    private static boolean isMantissaEqual(EMNumber n, double target) {
+        return Math.abs(n.mantissa() - target) < (0.00001);
+    }
+
+    @Override
+    public boolean equals(Object arg0) {
+        if (arg0 instanceof EMNumber) {
+            return this.equals((EMNumber) arg0);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean equals(EMNumber n) {
+        if (isMantissaEqual(n, this.mantissa) && this.exponent == n.exponent) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
