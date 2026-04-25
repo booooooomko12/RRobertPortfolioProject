@@ -3,14 +3,37 @@ package fundamentals;
 import components.naturalnumber.NaturalNumber;
 
 /**
- * Author: Riley Robert
- *
  * Representation of positive numbers using exponent-mantissa calculation.
  *
+ * @covention <pre>
+ * [$this.mantissa is a value between [0, 9.9999999]] and [exponent >= 0] and
+ * [significant figures of $this.mantissa == 7]
+ * </pre>
+ *
+ * @correspondence <pre>
+ * this = [base 10 equivalent number represented as
+ * ($this.mantissa)*10^($this.exponent)]
+ * </pre>
+ *
+ *
+ * @author Riley Robert
  */
-public class EMNumber implements Comparable<EMNumber> {
+public class EMNumber implements Comparable<EMNumber>, EMNumberKernel {
+
+    /*
+     * Yay! Constructors!
+     */
+
+    /**
+     * The number of significant figures EMNumber does calculations to; any
+     * calculations that result in changes to more/less than this are to
+     * completely replace this, or be ignored.
+     */
     private final int mantissaSigFigs = 7;
-    private final double MANTISSA_MAX = 9.9999999;
+    /**
+     * The maximum value mantissa can represent. I forget if I used this.
+     */
+    private final double mantissaMax = 9.9999999;
 
     /**
      * Stores values from 0 to 9.9999999. Multiplied by this.exponent.
@@ -22,15 +45,21 @@ public class EMNumber implements Comparable<EMNumber> {
      */
     private int exponent;
 
-    /*
-     * Yay! Constructors!
+    /**
+     * Baseline EMNumber constructor.
+     *
+     * this.mantissa = 0, this.exponent = 0
      */
-
     public EMNumber() {
         this.mantissa = 0;
         this.exponent = 0;
     }
 
+    /**
+     * Equivalent value EMNumber generated from NaturalNumber.
+     *
+     * @param n
+     */
     public EMNumber(NaturalNumber n) {
         this.mantissa = 0;
         this.exponent = 0;
@@ -50,6 +79,11 @@ public class EMNumber implements Comparable<EMNumber> {
         }
     }
 
+    /**
+     * Equivalent value EMNumber generated from int.
+     *
+     * @param n
+     */
     public EMNumber(int n) {
         assert n >= 0 : "Cannot intantiate EMNumber with negative value.";
         this.mantissa = 0;
@@ -70,17 +104,36 @@ public class EMNumber implements Comparable<EMNumber> {
         }
     }
 
+    /**
+     * Equivalent value EMNumber generated from values of another EMNumber.
+     *
+     * Notably copies values, does not alias.
+     *
+     * @restores n
+     * @param n
+     */
     public EMNumber(EMNumber n) {
         this.mantissa = n.mantissa;
         this.exponent = n.exponent;
     }
 
+    /**
+     * Manual constructor for EMNumber of the format (mantissa) * 10^(exponent).
+     *
+     * @param mantissa
+     * @param exponent
+     */
     public EMNumber(double mantissa, int exponent) {
         assert mantissa >= 0 : "Cannot intantiate EMNumber with negative value.";
         this.mantissa = mantissa;
         this.exponent = exponent;
     }
 
+    /**
+     * Equivalent value EMNumber generated from double.
+     *
+     * @param n
+     */
     public EMNumber(double n) {
         assert n >= 0 : "Cannot intantiate EMNumber with negative value.";
         this.mantissa = n;
@@ -101,7 +154,7 @@ public class EMNumber implements Comparable<EMNumber> {
             this.exponent--;
         }
 
-        while (this.mantissa > this.MANTISSA_MAX) {
+        while (this.mantissa > this.mantissaMax) {
             this.mantissa /= 10;
             this.exponent++;
         }
@@ -119,10 +172,30 @@ public class EMNumber implements Comparable<EMNumber> {
         return this.exponent;
     }
 
+    /**
+     * Reports if {@code this} is effectively 0.
+     *
+     * @ensures {@code this} is equal to 0 within reasonable decimal precision.
+     * @return {@code (this.mantissa() < 0.0000001) && this.exponent == 0}
+     */
     public boolean isZero() {
         return ((this.mantissa() < 0.0000001) && this.exponent == 0);
     }
 
+    /**
+     * Adds {@code n} to {@code this}.
+     *
+     * @ensures {@code if (this.exponent - n.exponent > mantissaSigFigs),
+     *  #this = this}
+     * @ensures {@code if (n.exponent - this.exponent > mantissaSigFigs),
+     *  #this = n}
+     * @ensures {@code else, #this = this - n}
+     *
+     * @updates this
+     * @param n
+     *            Number to be added
+     */
+    @Override
     public void add(EMNumber n) {
         // Trying to make this as fast as possible, don't do anything complex
         // unless necessary
@@ -162,34 +235,32 @@ public class EMNumber implements Comparable<EMNumber> {
         } else {
             int exponentDifference = n.exponent - this.exponent;
 
-            //this is bigger
-            if (exponentDifference < 0) {
-                this.mantissa += (double) Math.pow(n.mantissa,
-                        exponentDifference);
-                if (this.mantissa >= 10) {
-                    this.mantissa %= 10;
-                    this.exponent++;
-                    this.fixMantissa();
-                }
-
-                //n is bigger
-            } else {
-                this.exponent = n.exponent;
-                this.mantissa = n.mantissa
-                        + (double) Math.pow(this.mantissa, -exponentDifference);
-                if (this.mantissa >= 10) {
-                    this.mantissa %= 10;
-                    this.exponent++;
-                    this.fixMantissa();
-                }
+            this.mantissa += n.mantissa * (Math.pow(10, exponentDifference));
+            if (this.mantissa >= 10) {
+                this.mantissa %= 10;
+                this.exponent++;
+                this.fixMantissa();
             }
+
         }
     }
 
+    /**
+     * Subtracts {@code n} from {@code this}.
+     *
+     * @requires {@code this - n > 0}
+     * @ensures {@code if (this.exponent - n.exponent > mantissaSigFigs),
+     *  #this = this}
+     * @ensures {@code else, #this = this - n}
+     *
+     * @updates this
+     * @param n
+     *            Number to be subtracted
+     */
+    @Override
     public void subtract(EMNumber n) {
-        assert (this.exponent - n.exponent > 0
-                || (this.exponent - n.exponent == 0 && this.mantissa
-                        - n.mantissa < 0)) : "Subtraction would cause negative value.";
+        assert this
+                .compareTo(n) > 0 : "Subtraction would cause negative value.";
 
         // Trying to make this as fast as possible, don't do anything complex
         // unless necessary
@@ -214,14 +285,8 @@ public class EMNumber implements Comparable<EMNumber> {
             //Thankfully easier than add() due to negative prevention
         } else {
             int exponentDifference = n.exponent - this.exponent;
-            this.mantissa += (double) Math.pow(n.mantissa, exponentDifference);
-            if (this.mantissa <= 10) {
-                this.mantissa = 10 - this.mantissa;
-                this.exponent--;
-                this.fixMantissa();
-
-                //n is bigger
-            }
+            this.mantissa -= n.mantissa * (Math.pow(10, exponentDifference));
+            this.fixMantissa();
         }
     }
 
@@ -229,6 +294,8 @@ public class EMNumber implements Comparable<EMNumber> {
      * multiply and divide are not secondary methods due to being WAY faster on
      * their own
      */
+
+    @Override
     public void multiply(EMNumber n) {
         //I don't care that I'm using a kernel in a kernel, it'd be the exact
         //same code regardless, quit being picky!
@@ -243,6 +310,7 @@ public class EMNumber implements Comparable<EMNumber> {
         }
     }
 
+    @Override
     public void divide(EMNumber n) {
         assert !this.isZero() && !n.isZero() : "ERROR: Division by 0.";
 
@@ -268,13 +336,71 @@ public class EMNumber implements Comparable<EMNumber> {
         }
     }
 
+    /*
+     * Extended Methods
+     */
+
     @Override
-    public String toString() {
+    public final String toString() {
         return String.format("%.7f", this.mantissa) + "E" + this.exponent;
+    }
+
+    @Override
+    public final void clear() {
+        this.mantissa = 0;
+        this.exponent = 0;
+    }
+
+    @Override
+    public final EMNumber newInstance() {
+        return new EMNumber();
+    }
+
+    @Override
+    public final void transferFrom(EMNumber arg0) {
+        this.mantissa = arg0.mantissa;
+        this.exponent = arg0.exponent;
+        arg0.mantissa = 0;
+        arg0.exponent = 0;
+    }
+
+    private static boolean isMantissaEqual(EMNumber n, double target) {
+        return Math.abs(n.mantissa() - target) < (0.00001);
+    }
+
+    @Override
+    public boolean equals(Object arg0) {
+        if (arg0 instanceof EMNumber) {
+            return this.equals((EMNumber) arg0);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean equals(EMNumber n) {
+        if (isMantissaEqual(n, this.mantissa) && this.exponent == n.exponent) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
      * Secondary Methods
      */
+
+    /**
+     * Copy data from {@code arg0} to {@code this}, does not alter {@code arg0}.
+     *
+     * Identical behavior to EMNumber(EMNumber n).
+     *
+     * @restores arg0
+     * @ensures this = arg0
+     * @param arg0
+     */
+    public void copyFrom(EMNumber arg0) {
+        this.mantissa = arg0.mantissa;
+        this.exponent = arg0.exponent;
+    }
 
 }

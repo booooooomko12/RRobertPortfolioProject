@@ -31,7 +31,6 @@ replay_pid*
 .DS_Store
 
 # Render files
-*.pdf
 *tmp.html
 
 # Folders that will not be committed to the repo, even if private
