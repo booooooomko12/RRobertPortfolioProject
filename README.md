@@ -1,80 +1,63 @@
 # Portfolio Project
 
-The purpose of this repo is to provide a framework for creating your own
-component in the software sequence discipline. If you were unsure whether
-or not to make your own, consider the following testimonial:
+This is a project created by Riley Robert for OSU's CSE 2231 Software II course.
 
-> I really enjoyed the portfolio project! It gave me a stronger understanding
-> of the OSU software discipline while also giving me the flexibility to
-> design something that reflected my interests. This made the experience
-> rewarding and enjoyable as I created a product I was proud of!
+It contains several game objects useful in incremental game development.
 
-## Recommended Steps to Get Started
+## EMNumber
 
-When starting your portfolio project, the following steps should make your life
-a bit easier.
+### Representation
 
-### Step 1: Create a Repo From This Template
+An object meant to represent numbers in Exponent-Mantissa format.
 
-Assuming you're reading this README from GitHub, you can make use of this
-repo by clicking the `Use this template` button in the top-right corner of
-this page. If you can't find the button, [this link][use-this-template]
-should work as well. Personally, I would recommend using the
-`Create a new repository` option, which will allow you to name the
-repository after your component. Given that you will be submitting pull
-requests to me through Carmen, you'll want to make sure your repository
-is public. Then, you can click `Create repository`. After that, you can
-go through all the usual steps of cloning a repository on your system to
-get to work. I use GitHub Desktop to clone projects, and it has a nice
-feature of letting you open a repo directly in VSCode from the
-`Repository` menu.
+Ever seen a number so large in a calculator it was displayed something like:
 
-### Step 2: Install Recommended Plugins
+> 3.447534E61
 
-When you open VSCode with this project, you should get a notification in the
-bottom right corner that there are some recommended extensions to install.
-Click install all. If you ignored this message or it never came up, feel free
-to press CTRL+SHIFT+P and type "Show Recommended Extensions". Install all of the
-extensions listed.
+That is an example of Exponent-Mantissa notation. It conveys extremely large or
+small numbers through the use of the Mantissa (the decimal number) and the
+Exponent (the number after the E). Simply, the format follows:
 
-### Step 3: Install the Latest JDK
+> (mantissa) \* 10^(exponent)
 
-If you do not have an available JDK on your system, you may be prompted to
-install one by VSCode. The default seems to be Red Hat's OpenJDK, which seems to
-require you to register for an account or to install on the command line.
-Regardless, there is no mac support. As a result, I would just recommend
-installing the latest JDK [directly from Oracle's site][jdk-downloads].
+This allows for the representation of extremely large numbers with relatively
+little screen (and data) space.
 
-### Step 4: Add Key Libraries to Project
+### Methods
 
-As you are probably all aware at this point, you need the components jar to get
-anything running. My advice is to [download it from here][components-jar]. Then,
-drop it into the `lib` folder in the project. Git automatically ignores anything
-you put here by default, so don't worry about committing it to version control.
+Simple arithmetic methods like add, subtract, multiply, and divide are available.
 
-Similarly, you will need the testing APIs (e.g., JUnit). Perhaps the easiest way
-to include them in your project is to click the beaker symbol in the left
-sidebar; it's right below the extensions button which looks like four squares.
-If you do not see this button, try creating a Java file in `src`. From there,
-you can click "Enable Java Tests" and then click "JUnit" from the
-dropdown. That's it! You should now see the two JUnit libraries in the lib
-folder.
+Several useful constructors exist to convert more ordinary data types into this
+format, such as int, double, OSU's NaturalNumber, and more.
 
-**Note**: if you're using VSCode for class projects, you might be wondering
-why you never had to do this. In general, it's bad practice to commit binaries
-to version control. However, we have no way of managing dependencies with the
-custom `components.jar`, so I included them directly in the template. I did not
-include them here, so you could see how it might be done from scratch. If at any
-point you're struggling with Step 3, just copy the lib folder from the monorepo
-template.
+## Game Objects
 
-## Next Steps
+Listed below are some useful objects pertaining to various incremental game
+components.
 
-Now that you have everything setup, you can begin crafting your component. There
-will be deadlines for each step in Carmen, but you're free to complete each step
-as early as you'd like. To start, you'll want to visit the [doc](doc/) directory
-for each assignment file.
+## Multiplier
 
-[components-jar]: https://cse22x1.engineering.osu.edu/common/components.jar
-[jdk-downloads]: https://www.oracle.com/java/technologies/downloads/
-[use-this-template]: https://github.com/new?template_name=portfolio-project&template_owner=jrg94
+A variant of the EMNumber that specifies what GameObject it should multiply to,
+dictated by the entires in GameObjectNames.
+
+## Generator
+
+This object takes the amount of itself multiplied by a given Multiplier intended
+to create more of another GameObject
+
+## Material
+
+A simplistic GameObject that contains a variable to give a nicer display name,
+but also contains amount, type, etc. like other GameObjects.
+
+# Author Notes
+
+This project is unfortunately not in an entirely finished states. There are two
+java classes in the src folder to try out some use case examples, but the
+original project was meant to be a completed game, which unfortunately,
+there was not enough time for. Perhaps some day I'll come back to this and
+make a completed version, as I had high hopes for it.
+
+Regardless, I hope the components within this project serve some use.
+
+- Riley Robert
