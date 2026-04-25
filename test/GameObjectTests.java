@@ -8,9 +8,9 @@ import org.junit.Test;
 
 import fundamentals.EMNumber;
 import gameobjects.GameObjectNames;
+import gameobjects.Generator1;
 import gameobjects.Material;
 import gameobjects.Multiplier;
-import gameobjects.Synthesizer;
 
 public class GameObjectTests {
 
@@ -44,11 +44,11 @@ public class GameObjectTests {
         assertEquals("Scrap Iron", test.name());
     }
 
-    // Synthesizer Constructors
+    // Generator1 Constructors
 
     @Test
-    public void testSynthesizerConstructor_TypeOnly() {
-        Synthesizer<Material> test = new Synthesizer<Material>(
+    public void testGenerator1Constructor_TypeOnly() {
+        Generator1<Material> test = new Generator1<Material>(
                 GameObjectNames.DARKMATTER);
         Multiplier expectedMulti = new Multiplier(GameObjectNames.DARKMATTER);
 
@@ -58,9 +58,9 @@ public class GameObjectTests {
     }
 
     @Test
-    public void testSynthesizerConstructor_TypeAndAmount() {
+    public void testGenerator1Constructor_TypeAndAmount() {
         EMNumber amt = new EMNumber(500, 2);
-        Synthesizer<Material> test = new Synthesizer<Material>(
+        Generator1<Material> test = new Generator1<Material>(
                 GameObjectNames.GOLD, amt);
         Multiplier expectedMulti = new Multiplier(GameObjectNames.GOLD);
 
@@ -70,10 +70,10 @@ public class GameObjectTests {
     }
 
     @Test
-    public void testSynthesizerConstructor_Full() {
+    public void testGenerator1Constructor_Full() {
         EMNumber amt = new EMNumber(10);
         Multiplier multi = new Multiplier(2.5, 1, GameObjectNames.IRON);
-        Synthesizer<Material> test = new Synthesizer<Material>(
+        Generator1<Material> test = new Generator1<Material>(
                 GameObjectNames.IRON, amt, multi);
 
         assertEquals(GameObjectNames.IRON, test.type());
@@ -86,40 +86,40 @@ public class GameObjectTests {
 
     @Test
     public void testCompareTo_Equal() {
-        Synthesizer<Material> s1 = new Synthesizer<Material>(
-                GameObjectNames.GOLD, new EMNumber(100));
-        Synthesizer<Material> s2 = new Synthesizer<Material>(
-                GameObjectNames.IRON, new EMNumber(100));
+        Generator1<Material> s1 = new Generator1<Material>(GameObjectNames.GOLD,
+                new EMNumber(100));
+        Generator1<Material> s2 = new Generator1<Material>(GameObjectNames.IRON,
+                new EMNumber(100));
 
         assertEquals(0, s1.compareTo(s2));
     }
 
     @Test
     public void testCompareTo_Less() {
-        Synthesizer<Material> s1 = new Synthesizer<Material>(
-                GameObjectNames.GOLD, new EMNumber(50));
-        Synthesizer<Material> s2 = new Synthesizer<Material>(
-                GameObjectNames.GOLD, new EMNumber(100));
+        Generator1<Material> s1 = new Generator1<Material>(GameObjectNames.GOLD,
+                new EMNumber(50));
+        Generator1<Material> s2 = new Generator1<Material>(GameObjectNames.GOLD,
+                new EMNumber(100));
 
         assertTrue(s1.compareTo(s2) < 0);
     }
 
     @Test
     public void testCompareTo_Greater() {
-        Synthesizer<Material> s1 = new Synthesizer<Material>(
-                GameObjectNames.GOLD, new EMNumber(200));
-        Synthesizer<Material> s2 = new Synthesizer<Material>(
-                GameObjectNames.GOLD, new EMNumber(100));
+        Generator1<Material> s1 = new Generator1<Material>(GameObjectNames.GOLD,
+                new EMNumber(200));
+        Generator1<Material> s2 = new Generator1<Material>(GameObjectNames.GOLD,
+                new EMNumber(100));
 
         assertTrue(s1.compareTo(s2) > 0);
     }
 
-    //Synthesizer is the worst example so I chose to test it lol
+    //Generator1 is the worst example so I chose to test it lol
     @Test
     public void testNewInstance() {
-        Synthesizer<Material> s1 = new Synthesizer<Material>(
+        Generator1<Material> s1 = new Generator1<Material>(
                 GameObjectNames.DARKMATTER, new EMNumber(100));
-        Synthesizer<Material> s2 = (Synthesizer<Material>) s1.newInstance();
+        Generator1<Material> s2 = (Generator1<Material>) s1.newInstance();
 
         assertNotSame(s1, s2);
         assertEquals(new EMNumber(), s2.amount());
